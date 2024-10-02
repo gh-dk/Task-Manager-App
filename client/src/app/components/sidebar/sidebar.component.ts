@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+  openSideBar() {
+    const sidebar = document.getElementById('default-sidebar');
+    if (sidebar)
+      sidebar.classList.toggle('-translate-x-full');
+  }
 }

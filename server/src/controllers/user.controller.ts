@@ -3,6 +3,7 @@ import UserModel from "../models/user.model";
 import { UserInterface } from "../interfaces/user.interface";
 import bcrypt from "bcrypt";
 import { jwtSignInAccessToken, jwtSignInRefreshToken } from "../jwt/jwt";
+import { IErrorResponse, ILoginSuccessResponse, ISuccessResponse } from "../interfaces/response.interface";
 
 // interface responseMessage {
 //   message?: String;
@@ -13,9 +14,8 @@ export const getUser = (req: Request, res: Response) => {
   res.json({ message: "got data" });
 };
 
-export const addUser = async (req: Request, res: Response) => {
+export const addUser = async (req: Request, res: Response): Promise<any> => {
   try {
-    // const profilePic = req.file ? req.file.buffer : null;
     const newProfilePic = req.file
       ? { data: req.file.buffer, contentType: req.file.mimetype }
       : null;
@@ -41,9 +41,47 @@ export const addUser = async (req: Request, res: Response) => {
       }
     );
 
-    res.json({ user, accessToken, refreshToken });
+    return res.json({ user, accessToken, refreshToken });
   } catch (err) {
     console.log(err);
-    res.json({ message: "some thing went wrong" });
+    return res.json({ message: "some thing went wrong" });
+  }
+};
+
+export const loginUser = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const { email, password } = req.body;
+    console.log(req.body);
+
+
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // generate tokens
+    const refreshToken = jwtSignInRefreshToken(user._id.toString());
+    const accessToken = jwtSignInAccessToken(user._id.toString());
+
+    await UserModel.updateOne(
+      { _id: user._id },
+      {
+        $set: {
+          refreshToken,
+          accessToken,
+        },
+      }
+    );
+
+    const loginResponse: ILoginSuccessResponse = { user, accessToken, refreshToken };
+    return res.json(loginResponse);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };

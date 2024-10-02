@@ -11,6 +11,9 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MainComponent } from './components/main/main.component';
 import { RadialComponent } from './components/charts/radial/radial.component';
+import { ManageTaskComponent } from './components/manage-task/manage-task.component';
+import { TaskCardComponent } from './components/task-card/task-card.component';
+import { TaskFormComponent } from './components/task-form/task-form.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { RadialComponent } from './components/charts/radial/radial.component';
     SidebarComponent,
     MainComponent,
     RadialComponent,
+    ManageTaskComponent,
+    TaskCardComponent,
+    TaskFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [provideHttpClient()],

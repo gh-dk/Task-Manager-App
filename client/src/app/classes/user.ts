@@ -6,6 +6,7 @@ export class User {
     public contact: number = 0,
     public password: string = '',
     public profilePic?: any,
+    public tasks: Array<Object> = [],
     public refreshToken?: string,
     public accessToken?: string,
     public createdAt?: Date

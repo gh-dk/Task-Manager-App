@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-main',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-
+  constructor(public userService: UserService) { }
 }

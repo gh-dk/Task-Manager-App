@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-// import { UserInterface } from "../interfaces/user.interface";
+import { ITask, TaskSchema } from "./task.model";
 
 var UserSchema = new mongoose.Schema(
   {
@@ -10,6 +10,7 @@ var UserSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true
     },
     contact: {
       type: String,
@@ -23,6 +24,7 @@ var UserSchema = new mongoose.Schema(
       data: Buffer,
       contentType: String,
     },
+    tasks: [TaskSchema],
     refreshToken: String,
     accessToken: String,
   },
@@ -35,6 +37,7 @@ export interface IUser extends Document {
   contact: String;
   password: string;
   profilePic?: String;
+  tasks: ITask[];
   refreshToken: String;
   accessToken: String;
   createdAt: Date | number;
