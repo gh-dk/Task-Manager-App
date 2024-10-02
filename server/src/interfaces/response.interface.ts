@@ -7,8 +7,9 @@ export interface ISuccessResponse {
 }
 
 export interface ILoginSuccessResponse extends ISuccessResponse {
-    user: IUser; 
-  }
+    user: IUser;
+    message: string;
+}
 
 export interface IErrorResponse {
     message: string;

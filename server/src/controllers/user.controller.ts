@@ -78,7 +78,7 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
       }
     );
 
-    const loginResponse: ILoginSuccessResponse = { user, accessToken, refreshToken };
+    const loginResponse: ILoginSuccessResponse = { user, accessToken, refreshToken, message: "Login successful" };
     return res.json(loginResponse);
   } catch (err) {
     console.error(err);

@@ -1,9 +1,14 @@
 <div class="max-w-[400px] mx-auto">
-  <h1 class="text-2xl font-bold">Register Form</h1>
-  <p class="text-slate-700">
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi, ex.
-  </p>
-  <form class="mt-5" [formGroup]="registerForm" (submit)="submitForm()">
+  <div class="register_bg">
+    <div class="h-36 p-4 flex bg-gradient-to-b  from-transparent via-white to-white  flex-col justify-end">
+      <h1 class="text-2xl font-bold">Register Form</h1>
+      <p class="text-slate-700">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi, ex.
+      </p>
+    </div>
+  </div>
+
+  <form class="mt-5 p-4" [formGroup]="registerForm" (submit)="submitForm()">
     <!-- image select section -->
     <div class="mb-6">
       <div class="items-center gap-4">

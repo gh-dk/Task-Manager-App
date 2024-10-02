@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-form',
@@ -7,6 +8,16 @@ import { Component } from '@angular/core';
 })
 export class TaskFormComponent {
   taskFormState: boolean = false;
+  taskform: FormGroup;
+  constructor() {
+    this.taskform = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      stage: new FormControl('', [Validators.required]),
+      deadline: new FormControl('', [Validators.required]),
+      priority: new FormControl('', [Validators.required])
+
+    })
+  }
   openTaskForm() {
     this.taskFormState = !this.taskFormState;
   }
