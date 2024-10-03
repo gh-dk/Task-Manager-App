@@ -7,13 +7,16 @@ import { RegisterComponent } from './views/register/register.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MainComponent } from './components/main/main.component';
 import { RadialComponent } from './components/charts/radial/radial.component';
 import { ManageTaskComponent } from './components/manage-task/manage-task.component';
 import { TaskCardComponent } from './components/task-card/task-card.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
+import { TaskTableComponent } from './components/task-table/task-table.component';
+import { PieComponent } from './components/charts/pie/pie.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +31,12 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
     ManageTaskComponent,
     TaskCardComponent,
     TaskFormComponent,
+    TaskTableComponent,
+    PieComponent,
+    ProfileComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

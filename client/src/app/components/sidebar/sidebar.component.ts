@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-
+  constructor(public userService: UserService) { }
   openSideBar() {
     const sidebar = document.getElementById('default-sidebar');
     if (sidebar)

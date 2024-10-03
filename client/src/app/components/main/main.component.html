@@ -11,7 +11,7 @@
     <!-- 4/2 tiles -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
         <div
-            class="flex items-center justify-center flex-col py-5 sm:py-0 sm:flex-row gap-4 sm:h-24 rounded-md bg-pink-50 dark:bg-pink-800">
+            class="flex items-center justify-center flex-col py-5 px-2 sm:py-0 sm:flex-row gap-4 sm:h-24 rounded-md bg-pink-50 dark:bg-pink-800">
             <div class="bg-pink-200 w-12 h-12 flex justify-center items-center rounded-lg">
                 <i class="ri-list-check-3 text-2xl"></i>
             </div>
@@ -21,33 +21,34 @@
             </span>
         </div>
         <div
-            class="flex items-center justify-center flex-col py-5 sm:py-0 sm:flex-row gap-4 sm:h-24 rounded-md bg-blue-50 dark:bg-blue-800">
-            <div class="bg-blue-200 w-12 h-12 flex justify-center items-center rounded-lg">
-                <i class="ri-task-line text-2xl"></i>
-            </div>
-            <span class="text-center sm:text-left">
-                <p class="capitalize leading-5 text-sm">total completed</p>
-                <h3 class="text-2xl font-bold leading-6">10</h3>
-            </span>
-        </div>
-        <div
-            class="flex items-center justify-center flex-col py-5 sm:py-0 sm:flex-row gap-4 sm:h-24 rounded-md bg-green-50 dark:bg-green-800">
+            class="flex items-center justify-center flex-col py-5 px-2 sm:py-0 sm:flex-row gap-4 sm:h-24 rounded-md bg-green-50 dark:bg-green-800">
             <div class="bg-green-200 w-12 h-12 flex justify-center items-center rounded-lg">
                 <i class="ri-progress-3-line text-2xl"></i>
             </div>
             <span class="text-center sm:text-left">
-                <p class="capitalize leading-5 text-sm">pending tasks</p>
-                <h3 class="text-2xl font-bold leading-6">10</h3>
+                <p class="capitalize leading-5 text-sm"> backlog tasks</p>
+                <h3 class="text-2xl font-bold leading-6">{{userService.backlogTask.length}}</h3>
             </span>
         </div>
         <div
-            class="flex items-center justify-center flex-col py-5 sm:py-0 sm:flex-row gap-4 sm:h-24 rounded-md bg-yellow-50 dark:bg-yellow-800">
+            class="flex items-center justify-center flex-col py-5 px-2 sm:py-0 sm:flex-row gap-4 sm:h-24 rounded-md bg-blue-50 dark:bg-blue-800">
+            <div class="bg-blue-200 w-12 h-12 flex justify-center items-center rounded-lg">
+                <i class="ri-task-line text-2xl"></i>
+            </div>
+            <span class="text-center sm:text-left">
+                <p class="capitalize leading-5 text-sm"> ongoing / todo task</p>
+                <h3 class="text-2xl font-bold leading-6">{{userService.ongoingTask.length +
+                    userService.todoTask.length}}</h3>
+            </span>
+        </div>
+        <div
+            class="flex items-center justify-center flex-col py-5 px-2 sm:py-0 sm:flex-row gap-4 sm:h-24 rounded-md bg-yellow-50 dark:bg-yellow-800">
             <div class="bg-yellow-200 w-12 h-12 flex justify-center items-center rounded-lg">
                 <i class="ri-progress-3-line text-2xl"></i>
             </div>
             <span class="text-center sm:text-left">
-                <p class="capitalize leading-5 text-sm">pending tasks</p>
-                <h3 class="text-2xl font-bold leading-6">10</h3>
+                <p class="capitalize leading-5 text-sm"> completed tasks</p>
+                <h3 class="text-2xl font-bold leading-6">{{userService.doneTask.length}}</h3>
             </span>
         </div>
     </div>
@@ -56,16 +57,12 @@
         <div class=" rounded-md bg-gray-50 dark:bg-gray-800">
             <app-radial />
         </div>
-        <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-            <p class="text-2xl text-gray-400 dark:text-gray-500">
-                2nd chart
-            </p>
+        <div class=" rounded bg-gray-50  dark:bg-gray-800">
+            <app-pie />
         </div>
     </div>
-    <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-        <p class="text-2xl text-gray-400 dark:text-gray-500">
-            list
-        </p>
+    <div class="mb-4 rounded bg-gray-50 dark:bg-gray-800 max-w-screen overflow-scroll">
+        <app-task-table />
     </div>
     <!-- </div> -->
 </div>

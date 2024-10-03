@@ -85,3 +85,30 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+export const updateUser = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const updateData: Partial<UserInterface> = { ...req.body };
+
+    if (req.body.password) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      updateData.password = hashedPassword;
+    }
+    if (req.file) {
+      updateData.profilePic = {
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+      };
+    }
+    const updatedUser = await UserModel.findByIdAndUpdate(req.params.id, updateData);
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    return res.json({ user: updatedUser, message: 'User Updated Successfully' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
+};

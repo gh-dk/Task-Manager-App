@@ -1,0 +1,13 @@
+<div class="w-full  min-w-full p-4">
+    <div class="flex items-center justify-normal gap-2">
+        <h5 class="text-md font-medium  leading-none text-gray-900 dark:text-white pe-1">Your task's Category</h5>
+        <select name="" id="" [(ngModel)]="timePeriod" (change)="onTimePeriodChange()"
+            class=" border p-0 px-1 bg-gray-200 text-gray-900 text-md font-medium rounded-lg border-b-2  focus:border-blue-500 block  border-none dark:placeholder-gray-400 dark:text-white">
+            <option value="Year">Year</option>
+            <option value="Month">Month</option>
+            <option value="Week">Week</option>
+        </select>
+    </div>
+
+    <div id="pie-chart"></div>
+</div>

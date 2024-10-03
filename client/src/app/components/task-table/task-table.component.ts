@@ -4,10 +4,10 @@ import { Task } from '../../classes/task';
 import { TaskService } from '../../services/task.service';
 
 @Component({
-  selector: 'app-manage-task',
-  templateUrl: './manage-task.component.html',
-  styleUrl: './manage-task.component.scss'
+  selector: 'app-task-table',
+  templateUrl: './task-table.component.html',
+  styleUrl: './task-table.component.scss'
 })
-export class ManageTaskComponent {
+export class TaskTableComponent {
   constructor(public userService: UserService, public taskService: TaskService) { }
 }

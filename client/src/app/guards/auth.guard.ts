@@ -28,6 +28,9 @@ export function authGuard(): Observable<boolean> {
             map((response) => {
                 if (response.valid) {
                     userService.userData = response.user;
+                    console.log(userService.userData.tasks);
+
+                    userService.categorizeTask()
                     return true;
                 } else {
                     router.navigate(['/login']);

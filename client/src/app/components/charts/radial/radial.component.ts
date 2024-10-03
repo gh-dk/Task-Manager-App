@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import ApexCharts from 'apexcharts';
+import { TaskService } from '../../../services/task.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-radial',
@@ -8,7 +10,7 @@ import ApexCharts from 'apexcharts';
 })
 export class RadialComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  constructor(public taskService: TaskService, public userService: UserService) { }
 
   ngOnInit(): void { }
 
@@ -17,9 +19,13 @@ export class RadialComponent implements OnInit, AfterViewInit {
   }
 
   getChartOptions() {
+    const doneTask = this.userService.doneTask.length * 100 / this.userService.userData.tasks.length
+    const ongoingTask = this.userService.ongoingTask.length * 100 / this.userService.userData.tasks.length
+    const todoTask = this.userService.todoTask.length * 100 / this.userService.userData.tasks.length
+    const backlogTask = this.userService.backlogTask.length * 100 / this.userService.userData.tasks.length
     return {
-      series: [90, 85, 70],
-      colors: ["#d48cf2", "#c3ddfd", "#bcf0da"],  
+      series: [backlogTask, todoTask, ongoingTask, doneTask],
+      colors: ["#00000033", "#3f83f8", "#0e9f6e", "#f05252"],
       chart: {
         height: "380px",
         width: "100%",
@@ -52,7 +58,7 @@ export class RadialComponent implements OnInit, AfterViewInit {
           bottom: -20,
         },
       },
-      labels: ["Done", "In progress", "To do"],
+      labels: ["Backlog", "Todo", "Ongoing", "Done"],
       legend: {
         show: true,
         position: "bottom",

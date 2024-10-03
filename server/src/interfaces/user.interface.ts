@@ -8,4 +8,5 @@ export interface UserInterface {
   password: String;
   createdAt: String;
   updatedAt: String;
+  profilePic?: Object;
 }

@@ -5,11 +5,12 @@ import { DashboardComponent } from '../app/views/dashboard/dashboard.component';
 import { MainComponent } from '../app/components/main/main.component';
 import { ManageTaskComponent } from '../app/components/manage-task/manage-task.component';
 import { authGuard } from '../app/guards/auth.guard';
+import { ProfileComponent } from '../app/components/profile/profile.component';
 
 const router: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {
@@ -31,6 +32,10 @@ const router: Routes = [
     }, {
       path: 'task',
       component: ManageTaskComponent
+    },
+    {
+      path: 'profile',
+      component: ProfileComponent
     }]
   },
 ];
