@@ -19,10 +19,10 @@ export class ProfileComponent {
         Validators.minLength(10),
       ]),
       email: new FormControl(userService.userData.email, [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8),
-      ]),
+      // password: new FormControl('', [
+      //   Validators.required,
+      //   Validators.minLength(8),
+      // ]),
       profilePic: new FormControl(''),
     });
 

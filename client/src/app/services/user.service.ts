@@ -117,7 +117,8 @@ export class UserService {
         if (success.user) {
           this.userData = success.user;
           alert(success.message);
-          this.router.navigate(['../dashboard']);
+          // this.router.navigate(['../dashboard']);
+          window.location.reload()
         }
       },
       error: (err) => {

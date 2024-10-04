@@ -90,10 +90,10 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
   try {
     const updateData: Partial<UserInterface> = { ...req.body };
 
-    if (req.body.password) {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      updateData.password = hashedPassword;
-    }
+    // if (req.body.password) {
+    //   const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    //   updateData.password = hashedPassword;
+    // }
     if (req.file) {
       updateData.profilePic = {
         data: req.file.buffer,
