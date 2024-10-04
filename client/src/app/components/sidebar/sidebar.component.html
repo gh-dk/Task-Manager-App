@@ -1,0 +1,53 @@
+<header class="p-4 flex justify-between items-center sm:hidden">
+    <h1 class="text-lg font-bold">Dashboard</h1>
+    <i class="ri-menu-3-line text-lg" (click)="openSideBar()"></i>
+</header>
+
+<aside id="default-sidebar"
+    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+    aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <ul class="space-y-2 font-medium">
+            <li>
+                <a
+                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <img class="w-10 h-10 rounded-full ring-1 object-cover"
+                        [src]="userService.toUrl(userService.userData.profilePic)" alt="">
+                    <span class="ms-3 text-sm text-md ">
+                        <p class="capitalize">{{userService.userData.username}}</p>
+                        <small>{{userService.userData.email}}</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['../dashboard']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                    (click)="openSideBar()"
+                    class="flex items-center p-2 text-gray-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <i class="ri-pie-chart-2-line"></i>
+                    <span class="ms-3 text-sm">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['task']" routerLinkActive="active" (click)="openSideBar()"
+                    class="flex items-center p-2 text-gray-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <i class="ri-list-check-3"></i>
+                    <span class="flex-1 ms-3 whitespace-nowrap text-sm">Manage Task</span>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['profile']" (click)="openSideBar()"
+                    class="flex items-center p-2 text-gray-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <i class="ri-account-circle-line"></i>
+                    <span class="flex-1 ms-3 whitespace-nowrap text-sm">Profile</span>
+                </a>
+            </li>
+            <li>
+                <a (click)="userService.userLogout()"
+                    class="flex items-center p-2 text-red-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <i class="ri-logout-circle-r-line"></i>
+                    <span class="flex-1 ms-3 whitespace-nowrap text-sm">Sign Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>

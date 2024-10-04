@@ -1,0 +1,116 @@
+<div class="p-4 pt-4 sm:ml-64">
+    <div class="banner bg-red-500 h-32 w-full rounded-lg profile_banner"></div>
+    <!-- bg-gradient-to-b  from-transparent via-white to-white -->
+    <!-- <div class="h-28 -mt-12 px-4 flex gap-5 items-end  ">
+        <img [src]="userService.toUrl(userService.userData.profilePic)"
+            class="w-32 h-32 object-cover rounded-full ring-gray-300 ring-1" alt="">
+
+        <div class="flex pb-3 items-center justify-normal gap-5">
+            <span class="-mt-2">
+                <h3 class="text-xl capitalize font-medium ">{{userService.userData.username}}</h3>
+                <p class="text-gray-500 text-sm">{{userService.userData.email}}</p>
+            </span>
+
+            <button class="btn bg-black text-white py-2 px-4 text-sm rounded-md">Edit Profile</button>
+        </div>
+    </div> -->
+
+    <form class=" p-4 max-w-[340px] mx-auto -mt-20" [formGroup]="updateProfileForm" (submit)="submitForm()">
+        <!-- image select section -->
+        <div class="mb-6">
+            <div class="items-center gap-4">
+                <img class="w-32 mx-auto h-32 mb-3 rounded-full border-2 p-1 object-cover" [src]="previewImage" />
+                <input type="file" class="hidden" id="profilePic" (change)="fileChange($event)" required />
+                <label for="profilePic"
+                    class="block text-center rounded-lg mb-2 max-w-[150px] mx-auto text-xs font-medium bg-slate-300 p-2 text-gray-900 dark:text-white">Profile
+                    Image
+                </label>
+
+            </div>
+        </div>
+
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                <label for="username"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                <input type="text" id="username"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="John" formControlName="username" />
+
+                <!-- validation message for username -->
+                <span *ngIf="
+                updateProfileForm.get('username')?.touched &&
+                updateProfileForm.get('username')?.invalid
+              ">
+                    <small class="text-red-500" *ngIf="updateProfileForm.get('username')?.errors?.['required']">
+                        Username is required
+                    </small>
+                </span>
+            </div>
+
+            <div>
+                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
+                    number</label>
+                <input type="tel" id="phone"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="123-45-678" formControlName="contact" />
+                <!-- validation message for contact -->
+                <span *ngIf="
+                updateProfileForm.get('contact')?.touched &&
+                updateProfileForm.get('contact')?.invalid
+              ">
+                    <small class="text-red-500" *ngIf="updateProfileForm.get('contact')?.errors?.['required']">
+                        Phone number is required
+                    </small>
+                    <small class="text-red-500" *ngIf="updateProfileForm.get('contact')?.errors?.['minlength']">
+                        Phone number should be at least 10 digits
+                    </small>
+                </span>
+            </div>
+        </div>
+        <div class="mb-6">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
+                address</label>
+            <input type="email" id="email"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="john.doe@company.com" formControlName="email" />
+            <!-- validation message for email -->
+            <span *ngIf="
+              updateProfileForm.get('email')?.touched &&
+              updateProfileForm.get('email')?.invalid
+            ">
+                <small class="text-red-500" *ngIf="updateProfileForm.get('email')?.errors?.['required']">
+                    Email is required
+                </small>
+                <small class="text-red-500" *ngIf="updateProfileForm.get('email')?.errors?.['email']">
+                    Enter a valid email address
+                </small>
+            </span>
+        </div>
+        <div class="mb-6">
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            <input type="password" id="password"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="" formControlName="password" />
+
+            <!-- validation message for password -->
+            <span *ngIf="
+              updateProfileForm.get('password')?.touched &&
+              updateProfileForm.get('password')?.invalid
+            ">
+                <small class="text-red-500" *ngIf="updateProfileForm.get('password')?.errors?.['required']">
+                    Password is required
+                </small>
+                <small class="text-red-500" *ngIf="updateProfileForm.get('password')?.errors?.['minlength']">
+                    Password must be at least 8 characters
+                </small>
+            </span>
+        </div>
+
+        <button type="submit" [disabled]="updateProfileForm.invalid"
+            class="text-white bg-blue-700 disabled:bg-slate-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Update
+        </button>
+
+    </form>
+</div>

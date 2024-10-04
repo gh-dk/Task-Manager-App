@@ -1,3 +1,5 @@
+import { Task } from "./task";
+
 export class User {
   constructor(
     public _id: string = '',
@@ -6,6 +8,7 @@ export class User {
     public contact: number = 0,
     public password: string = '',
     public profilePic?: any,
+    public tasks: Task[] = [],
     public refreshToken?: string,
     public accessToken?: string,
     public createdAt?: Date

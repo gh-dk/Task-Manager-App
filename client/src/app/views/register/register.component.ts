@@ -49,8 +49,7 @@ export class RegisterComponent {
     // });
 
     if (this.registerForm.valid) {
-      // Proceed with form submission
-      // this.userService.addUser(this.registerForm.value);
+      this.userService.addUser(this.registerForm.value);
     } else {
       console.log('Form is invalid');
     }

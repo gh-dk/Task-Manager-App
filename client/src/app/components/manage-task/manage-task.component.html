@@ -1,0 +1,39 @@
+<div class="p-4 pt-0 sm:ml-64">
+    <div class="py-6 sm:flex justify-between items-center ">
+        <span>
+            <h1 class="text-3xl font-bold ">Manager Task</h1>
+            <h1 class="text-sm font-medium  opacity-80 mt-2">Organize, prioritize, and accomplish your goals
+            </h1>
+        </span>
+        <span>
+            <app-task-form [prefiledData]="taskService.editTaskFormData" />
+        </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-4 mb-4  dark:bg-gray-800">
+        <div>
+            <h3 class="bg-gray-100 p-2 capitalize text-center rounded-md">backlog</h3>
+            <div class="box">
+                <app-task-card bgColor="bg-gray-500" [task]="task" *ngFor="let task of userService.backlogTask" />
+            </div>
+        </div>
+        <div>
+            <h3 class="bg-blue-100 text-blue-500 p-2 capitalize text-center rounded-md">Todo</h3>
+            <div class="box">
+                <app-task-card bgColor="bg-blue-500" [task]="task" *ngFor="let task of userService.todoTask" />
+            </div>
+        </div>
+        <div>
+            <h3 class="bg-green-100 text-green-500 p-2 capitalize text-center rounded-md">Ongoing</h3>
+            <div class="box">
+                <app-task-card bgColor="bg-green-500" [task]="task" *ngFor="let task of userService.ongoingTask" />
+            </div>
+        </div>
+        <div>
+            <h3 class="bg-red-100 text-red-500 p-2 capitalize text-center rounded-md">Done</h3>
+            <div class="box">
+                <app-task-card bgColor="bg-red-500" [task]="task" *ngFor="let task of userService.doneTask" />
+            </div>
+        </div>
+    </div>
+</div>
