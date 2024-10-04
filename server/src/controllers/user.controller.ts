@@ -10,9 +10,9 @@ import { IErrorResponse, ILoginSuccessResponse, ISuccessResponse } from "../inte
 //   user?: UserInterface;
 // }
 
-export const getUser = (req: Request, res: Response) => {
-  res.json({ message: "got data" });
-};
+// export const getUser = (req: Request, res: Response) => {
+//   res.json({ message: "got data" });
+// };
 
 export const addUser = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -100,7 +100,7 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
         contentType: req.file.mimetype,
       };
     }
-    const updatedUser = await UserModel.findByIdAndUpdate(req.params.id, updateData);
+    const updatedUser = await UserModel.findByIdAndUpdate(req.params._id, updateData);
 
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });

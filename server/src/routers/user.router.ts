@@ -7,12 +7,12 @@ import { verifyToken } from "../jwt/jwt";
 const userRouter = Router();
 const upload = multer();
 
-userRouter.get("/", getUser);
+// userRouter.get("/", getUser);
 
 userRouter.post("/login", loginUser);
 userRouter.get('/verifyJWT', verifyToken)
 userRouter.post("/register", upload.single("profilePic"), checkEmailUnique, addUser);
-userRouter.put("/update/:id", upload.single("profilePic"), updateUser);
+userRouter.put("/update/:_id", upload.single("profilePic"), updateUser);
 
 
 export default userRouter;

@@ -18,6 +18,9 @@ import { TaskTableComponent } from './components/task-table/task-table.component
 import { PieComponent } from './components/charts/pie/pie.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,8 +38,19 @@ import { ProfileComponent } from './components/profile/profile.component';
     PieComponent,
     ProfileComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
+  ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

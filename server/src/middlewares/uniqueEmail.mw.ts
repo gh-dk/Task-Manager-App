@@ -11,7 +11,7 @@ export const checkEmailUnique = async (req: Request, res: Response, next: NextFu
     try {
         const existingUser = await UserModel.findOne({ email });
         if (existingUser) {
-            return res.status(409).json({ message: "Email is already in use" });
+            return res.status(400).json({ message: "Email is already in use" });
         }
         next();
     } catch (err) {

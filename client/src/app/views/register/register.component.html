@@ -24,14 +24,15 @@
           id="profilePic"
           (change)="fileChange($event)"
           required
+          accept="image/*"
         />
         <label
           for="profilePic"
           class="block text-center rounded-lg mb-2 max-w-[150px] mx-auto text-xs font-medium bg-slate-300 p-2 text-gray-900 dark:text-white"
-          >Profile Image
+          >Choose Profile Image
         </label>
         <small
-          class="text-red-500 block text-center"
+          class="text-gray-500 block text-center"
           *ngIf="registerForm.get('profilePic')?.errors?.['required']"
         >
           Profile Pic is required
@@ -80,7 +81,6 @@
           type="tel"
           id="phone"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="123-45-678"
           formControlName="contact"
         />
         <!-- validation message for contact -->
@@ -98,9 +98,9 @@
           </small>
           <small
             class="text-red-500"
-            *ngIf="registerForm.get('contact')?.errors?.['minlength']"
+            *ngIf="registerForm.get('contact')?.errors?.['pattern']"
           >
-            Phone number should be at least 10 digits
+            Phone number should be at least 10 digits and should be number
           </small>
         </span>
       </div>
@@ -173,6 +173,43 @@
           Password must be at least 8 characters
         </small>
       </span>
+    </div>
+
+    <!-- confirm password -->
+    <div class="mb-6">
+      <label
+        for="password"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Confirm Password</label
+      >
+      <input
+        type="password"
+        id="password"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder=""
+        formControlName="confirmPassword"
+      />
+
+      <!-- validation message for confirmPassword -->
+      <span
+        *ngIf="
+          registerForm.get('confirmPassword')?.touched &&
+          registerForm.get('confirmPassword')?.invalid
+        "
+      >
+        <small
+          class="text-red-500"
+          *ngIf="registerForm.get('confirmPassword')?.errors?.['required']"
+        >
+          Password is required
+        </small>
+      </span>
+      <small
+        *ngIf="registerForm.errors?.['passwordsMismatch']"
+        class="text-red-500"
+      >
+        Passwords do not match.
+      </small>
     </div>
 
     <button

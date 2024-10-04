@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,7 @@ export class ProfileComponent {
   previewImage: string;
 
   updateProfileForm: FormGroup
-  constructor(public userService: UserService) {
+  constructor(public userService: UserService,public toastr:ToastrService) {
     this.updateProfileForm = new FormGroup({
       username: new FormControl(userService.userData.username, Validators.required),
       contact: new FormControl(userService.userData.contact, [

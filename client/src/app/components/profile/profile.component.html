@@ -20,7 +20,7 @@
         <div class="mb-6">
             <div class="items-center gap-4">
                 <img class="w-32 mx-auto h-32 mb-3 rounded-full border-2 p-1 object-cover" [src]="previewImage" />
-                <input type="file" class="hidden" id="profilePic" (change)="fileChange($event)" required />
+                <input type="file" class="hidden" id="profilePic" accept="image/*"  (change)="fileChange($event)" required />
                 <label for="profilePic"
                     class="block text-center rounded-lg mb-2 max-w-[150px] mx-auto text-xs font-medium bg-slate-300 p-2 text-gray-900 dark:text-white">Profile
                     Image
@@ -68,10 +68,10 @@
                 </span>
             </div>
         </div>
-        <div class="mb-6">
+        <div class="mb-6 hidden">
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
                 address</label>
-            <input type="email" id="email"
+            <input type="email" id="email" readonly [disabled]="true"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="john.doe@company.com" formControlName="email" />
             <!-- validation message for email -->

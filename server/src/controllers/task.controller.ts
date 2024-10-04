@@ -39,9 +39,9 @@ export const addTask = async (req: ITaskRequest, res: Response): Promise<any> =>
 }
 
 export const moveTaskForward = async (req: Request, res: Response): Promise<any> => {
-  const { userId, taskId } = req.params;
+  const { user_id, taskId } = req.params;
   try {
-    const user = await UserModel.findById(userId);
+    const user = await UserModel.findById(user_id);
     console.log(user);
 
     if (!user) return res.status(404).json({ message: "User not found" });
@@ -64,9 +64,9 @@ export const moveTaskForward = async (req: Request, res: Response): Promise<any>
 };
 
 export const moveTaskBackward = async (req: Request, res: Response): Promise<any> => {
-  const { userId, taskId } = req.params;
+  const { user_id, taskId } = req.params;
   try {
-    const user = await UserModel.findById(userId);
+    const user = await UserModel.findById(user_id);
     console.log(user);
 
     if (!user) return res.status(404).json({ message: "User not found" });
@@ -89,11 +89,11 @@ export const moveTaskBackward = async (req: Request, res: Response): Promise<any
 };
 
 export const updateTask = async (req: Request, res: Response): Promise<any> => {
-  const { userId, taskId } = req.params;
+  const { user_id, taskId } = req.params;
   const taskData = req.body;
 
   try {
-    const user = await UserModel.findById(userId);
+    const user = await UserModel.findById(user_id);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

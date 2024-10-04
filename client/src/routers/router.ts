@@ -26,17 +26,25 @@ const router: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [authGuard],
-    children: [{
-      path: '',
-      component: MainComponent
-    }, {
-      path: 'task',
-      component: ManageTaskComponent
-    },
-    {
-      path: 'profile',
-      component: ProfileComponent
-    }]
+    children: [
+      {
+        path: '',
+        component: MainComponent,
+      },
+      {
+        path: 'task',
+        component: ManageTaskComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+      },
+    ],
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
   },
 ];
 

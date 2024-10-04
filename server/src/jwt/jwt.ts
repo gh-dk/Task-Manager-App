@@ -12,7 +12,7 @@ interface jwtAuthRequest extends Request {
 
 const secret: string = process.env.SECRET_CODE;
 
-// JWT TOKEN Generation
+// jwt TOKEN Generation
 export const jwtSignInAccessToken = (id: string): any => {
   return jwt.sign({ userId: id }, process.env.JWT_ACCESS_TOKEN, {
     expiresIn: "1h",
@@ -25,7 +25,7 @@ export const jwtSignInRefreshToken = (id: string): any => {
   });
 };
 
-// JWT Verfication
+// jwt verfication
 export const JWT_MIDDLEWARE = (
   req: Request,
   res: Response,

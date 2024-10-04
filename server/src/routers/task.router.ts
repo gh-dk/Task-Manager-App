@@ -9,9 +9,9 @@ taskRouter.get("/", (req: Request, res: Response) => {
 
 taskRouter.get("/:user_id", getAllTasks)
 taskRouter.post("/", addTask);
-taskRouter.put('/move-forward/:userId/:taskId', moveTaskForward);
-taskRouter.put('/move-backward/:userId/:taskId', moveTaskBackward);
-taskRouter.put('/:userId/:taskId', updateTask);
+taskRouter.put('/move-forward/:user_id/:taskId', moveTaskForward);
+taskRouter.put('/move-backward/:user_id/:taskId', moveTaskBackward);
+taskRouter.put('/:user_id/:taskId', updateTask);
 taskRouter.delete('/:user_id/:taskId', deleteTask);
 
 

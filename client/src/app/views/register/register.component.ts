@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { passwordMatchValidator } from '../../validators/passwordMatchValidator';
 
 @Component({
   selector: 'app-register',
@@ -13,19 +14,24 @@ export class RegisterComponent {
     'https://statusenergy.ca/wp-content/uploads/2018/12/no-image.png';
 
   constructor(public userService: UserService) {
-    this.registerForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      contact: new FormControl('', [
-        Validators.required,
-        Validators.minLength(10),
-      ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8),
-      ]),
-      profilePic: new FormControl('', [Validators.required]),
-    });
+    this.registerForm = new FormGroup(
+      {
+        username: new FormControl('', Validators.required),
+        contact: new FormControl('', [
+          Validators.required,
+          // Validators.minLength(10),
+          Validators.pattern('^[0-9]{10}$'),
+        ]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8),
+        ]),
+        confirmPassword: new FormControl('', [Validators.required]),
+        profilePic: new FormControl('', [Validators.required]),
+      },
+      { validators: passwordMatchValidator() }
+    );
   }
 
   fileChange(event: Event) {
