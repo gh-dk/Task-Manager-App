@@ -20,11 +20,11 @@ export class TaskService {
   }
 
   updateTask(task: Task) {
-    return this.http.put<{ message: string, task: Task }>(`${this.SERVER_URL}/${this.userService.userData._id}/${task._id}`, task);
+    return this.http.put<{ message: string, task: Task }>(`${this.SERVER_URL}/${task._id}`, task);
   }
 
   getAllTask() {
-    return this.http.get<{ message: string, tasks: Task[] }>(this.SERVER_URL + '/' + this.userService.userData._id).subscribe({
+    return this.http.get<{ message: string, tasks: Task[] }>(this.SERVER_URL).subscribe({
       next: (data) => {
         this.userService.userData.tasks = data.tasks;
         this.userService.categorizeTask()
@@ -59,15 +59,15 @@ export class TaskService {
     }
   }
 
-  moveTaskForward(userId: string, taskId: string) {
-    return this.http.put<{ message: string; task: Task[] }>(`${this.SERVER_URL}/move-forward/${userId}/${taskId}`, null);
+  moveTaskForward(taskId: string) {
+    return this.http.put<{ message: string; task: Task[] }>(`${this.SERVER_URL}/move-forward/${taskId}`, null);
   }
 
-  moveTaskBackward(userId: string, taskId: string) {
-    return this.http.put<{ message: string; task: Task[] }>(`${this.SERVER_URL}/move-backward/${userId}/${taskId}`, null);
+  moveTaskBackward(taskId: string) {
+    return this.http.put<{ message: string; task: Task[] }>(`${this.SERVER_URL}/move-backward/${taskId}`, null);
   }
 
-  deleteTask(userId: string, taskId: string) {
-    return this.http.delete<{ message: string; task: Task[] }>(`${this.SERVER_URL}/${userId}/${taskId}`);
+  deleteTask(taskId: string) {
+    return this.http.delete<{ message: string; task: Task[] }>(`${this.SERVER_URL}/${taskId}`);
   }
 }

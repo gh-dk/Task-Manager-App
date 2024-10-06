@@ -59,40 +59,39 @@ export class TaskFormComponent implements OnChanges {
   }
 
   submitForm() {
-    if (this.checkDeadlineValid()) {
-      this.toastr.error('Deadline should be in the future');
-    } else {
-      if (this.taskform.valid && this.userService.userData._id) {
-        if (this.isformTypeUpdate) {
-          this.taskService
-            .updateTask({
-              ...this.taskform.value,
-              _id: this.taskService.editTaskFormData._id,
-            })
-            .subscribe({
-              next: (success) => {
-                console.log(success);
-                if (success.task) {
-                  this.taskService.taskFormState = false;
-                  this.toastr.success(success.message);
-                  this.taskService.getAllTask();
-                  this.userService.categorizeTask();
-                  this.taskService.editTaskFormData = new Task();
-                  this.isformTypeUpdate = false;
-                  this.taskform.reset();
-                } else {
-                  alert('something went wrong');
-                }
-              },
-              error: (err) => {
-                alert(err);
-              },
-            });
+    if (this.taskform.valid && this.userService.userData._id) {
+      if (this.isformTypeUpdate) {
+        this.taskService
+          .updateTask({
+            ...this.taskform.value,
+            _id: this.taskService.editTaskFormData._id,
+          })
+          .subscribe({
+            next: (success) => {
+              console.log(success);
+              if (success.task) {
+                this.taskService.taskFormState = false;
+                this.toastr.success(success.message);
+                this.taskService.getAllTask();
+                this.userService.categorizeTask();
+                this.taskService.editTaskFormData = new Task();
+                this.isformTypeUpdate = false;
+                this.taskform.reset();
+              } else {
+                alert('something went wrong');
+              }
+            },
+            error: (err) => {
+              alert(err);
+            },
+          });
+      } else {
+        if (this.checkDeadlineValid()) {
+          this.toastr.error('Deadline should be in the future');
         } else {
           this.taskService
             .addTask({
               ...this.taskform.value,
-              user_id: this.userService.userData._id,
             })
             .subscribe({
               next: (success) => {
@@ -116,8 +115,6 @@ export class TaskFormComponent implements OnChanges {
               },
             });
         }
-      } else {
-        console.log('Form is invalid');
       }
     }
   }

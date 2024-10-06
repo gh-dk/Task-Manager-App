@@ -18,12 +18,8 @@ export function authGuard(): Observable<boolean> {
         return new Observable<boolean>((observer) => observer.next(false));
     }
 
-    const headers = new HttpHeaders({
-        Authorization: `Bearer ${accessToken}`,
-    });
-
     return http
-        .get<{ valid: boolean, user: User }>('http://localhost:3000/user/verifyJWT', { headers })
+        .get<{ valid: boolean, user: User }>('http://localhost:3000/user/verify')
         .pipe(
             map((response) => {
                 if (response.valid) {

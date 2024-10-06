@@ -7,7 +7,9 @@ interface ITaskRequest extends Request {
 }
 
 export const getAllTasks = async (req: Request, res: Response): Promise<any> => {
-  const { user_id } = req.params;
+  const { user_id } = req.body;
+  console.log(req.body);
+
   try {
     const user = await UserModel.findById(user_id);
     if (!user) {
@@ -23,6 +25,8 @@ export const getAllTasks = async (req: Request, res: Response): Promise<any> => 
 export const addTask = async (req: ITaskRequest, res: Response): Promise<any> => {
   try {
     const { user_id, ...taskData } = req.body
+    console.log(user_id);
+    
     const user = await UserModel.findById(user_id);
 
     if (!user) return res.status(404).json({ message: "User not found" });
@@ -39,7 +43,8 @@ export const addTask = async (req: ITaskRequest, res: Response): Promise<any> =>
 }
 
 export const moveTaskForward = async (req: Request, res: Response): Promise<any> => {
-  const { user_id, taskId } = req.params;
+  const { taskId } = req.params;
+  const { user_id } = req.body
   try {
     const user = await UserModel.findById(user_id);
     console.log(user);
@@ -64,7 +69,8 @@ export const moveTaskForward = async (req: Request, res: Response): Promise<any>
 };
 
 export const moveTaskBackward = async (req: Request, res: Response): Promise<any> => {
-  const { user_id, taskId } = req.params;
+  const { taskId } = req.params;
+  const { user_id } = req.body
   try {
     const user = await UserModel.findById(user_id);
     console.log(user);
@@ -89,7 +95,8 @@ export const moveTaskBackward = async (req: Request, res: Response): Promise<any
 };
 
 export const updateTask = async (req: Request, res: Response): Promise<any> => {
-  const { user_id, taskId } = req.params;
+  const { taskId } = req.params;
+  const { user_id } = req.body
   const taskData = req.body;
 
   try {
@@ -116,7 +123,9 @@ export const updateTask = async (req: Request, res: Response): Promise<any> => {
 };
 
 export const deleteTask = async (req: Request, res: Response): Promise<any> => {
-  const { user_id, taskId } = req.params;
+  const { taskId } = req.params;
+  const { user_id } = req.body
+
   try {
     const user = await UserModel.findById(user_id);
 
