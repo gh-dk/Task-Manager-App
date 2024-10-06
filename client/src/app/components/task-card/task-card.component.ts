@@ -65,7 +65,7 @@ export class TaskCardComponent {
     this.taskService.taskFormState = true;
   }
 
-  deleteTask(user_id: string, task_id: string) {
+  deleteTask(task_id: string) {
     const confirmation = confirm('Are you sure you want to delete this task');
     if (confirmation) {
       this.taskService.deleteTask(task_id).subscribe({

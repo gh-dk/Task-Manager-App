@@ -25,7 +25,6 @@ export function authGuard(): Observable<boolean> {
                 if (response.valid) {
                     userService.userData = response.user;
                     console.log(userService.userData.tasks);
-
                     userService.categorizeTask()
                     return true;
                 } else {
