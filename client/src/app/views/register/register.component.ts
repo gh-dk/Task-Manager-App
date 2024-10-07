@@ -19,8 +19,10 @@ export class RegisterComponent {
         username: new FormControl('', Validators.required),
         contact: new FormControl('', [
           Validators.required,
-          // Validators.minLength(10),
-          Validators.pattern('^[0-9]{10}$'),
+          Validators.minLength(10),
+          // Validators.maxLength(10),
+
+          // Validators.pattern('^[0-9]{10}$'),
         ]),
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [
@@ -58,6 +60,15 @@ export class RegisterComponent {
       this.userService.addUser(this.registerForm.value);
     } else {
       console.log('Form is invalid');
+    }
+  }
+
+  validateInput() {
+    const contactControl = this.registerForm.get('contact');
+    if (contactControl) {
+      let inputValue = contactControl.value;
+      inputValue = inputValue.replace(/[^0-9]/g, '');
+      contactControl.setValue(inputValue);
     }
   }
 }

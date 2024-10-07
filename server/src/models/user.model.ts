@@ -25,8 +25,6 @@ var UserSchema = new mongoose.Schema(
       contentType: String,
     },
     tasks: [TaskSchema],
-    refreshToken: String,
-    accessToken: String,
   },
   { timestamps: true }
 );
@@ -38,8 +36,6 @@ export interface IUser extends Document {
   password: string;
   profilePic?: String;
   tasks: ITask[];
-  refreshToken: String;
-  accessToken: String;
   createdAt: Date | number;
   updatedAt: Date | number;
 }

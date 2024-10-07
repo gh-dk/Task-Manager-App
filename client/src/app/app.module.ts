@@ -47,7 +47,7 @@ import { authInterceptor } from './interceptors/auth.interceptor';
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 10000,
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-top-center',
       preventDuplicates: true,
     }),
   ],

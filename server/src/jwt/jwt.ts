@@ -1,48 +1,97 @@
 import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
-import UserModel from "../models/user.model";
-
 
 interface jwtAuthRequest extends Request {
   _id: string;
 }
 
-
 // jwt TOKEN Generation
 export const jwtSignInAccessToken = (id: string): any => {
   return jwt.sign({ userId: id }, process.env.JWT_ACCESS_TOKEN, {
-    expiresIn: "1h",
+    expiresIn: "10s",
   });
 };
 
 export const jwtSignInRefreshToken = (id: string): any => {
   return jwt.sign({ userId: id }, process.env.JWT_REFRESH_TOKEN, {
-    expiresIn: "2d",
+    expiresIn: "1h",
   });
 };
 
 // jwt verfication
-export const verifyToken = (req: jwtAuthRequest, res: Response, next: NextFunction): Promise<any> => {
+export const verifyToken = (
+  req: jwtAuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
   return new Promise((resolve, reject) => {
     console.log(req.header);
 
-    const authHeader = req.headers['authorization'];
+    const authHeader = req.headers["authorization"];
 
-    console.log('im jwt mw', authHeader);
+    console.log("im jwt mw", authHeader);
 
     if (!authHeader) {
-      return resolve(res.status(403).json({ message: "No token provided", valid: false }));
+      return resolve(
+        res.status(403).json({ message: "No token provided", valid: false })
+      );
     }
 
-    const token = authHeader.split(' ')[1];
+    const token = authHeader.split(" ")[1];
 
-    jwt.verify(token, process.env.JWT_ACCESS_TOKEN as string, async (err: any, decoded: any) => {
+    jwt.verify(
+      token,
+      process.env.JWT_ACCESS_TOKEN as string,
+      async (err: any, decoded: any) => {
+        if (err) {
+          return resolve(
+            res
+              .status(401)
+              .json({ message: "Invalid or expired token", valid: false })
+          );
+        }
+
+        req.body.user_id = decoded.userId;
+        resolve(next());
+      }
+    );
+  });
+};
+
+export const verifyRefreshToken = async (
+  req: jwtAuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  console.log("im jwt refresh token");
+
+  const { token } = req.params;
+  jwt.verify(
+    token,
+    process.env.JWT_REFRESH_TOKEN as string,
+    async (err: any, decoded: any) => {
       if (err) {
-        return resolve(res.status(403).json({ message: "Invalid or expired token", valid: false }));
+        return res.status(401).json({
+          message: "Invalid or expired token msg",
+          valid: false,
+          error: err,
+          token: token,
+        });
       }
 
       req.body.user_id = decoded.userId;
-      resolve(next());
-    });
-  });
+      next();
+    }
+  );
+};
+
+export const assignToken = async (
+  req: jwtAuthRequest,
+  res: Response
+): Promise<any> => {
+  console.log("im assigntoekm");
+
+  const accessToken = jwtSignInAccessToken(req.body.user_id);
+
+  return res.status(200).json({ accessToken, valid: true });
 };

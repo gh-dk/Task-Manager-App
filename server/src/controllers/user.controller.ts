@@ -3,7 +3,11 @@ import UserModel from "../models/user.model";
 import { UserInterface } from "../interfaces/user.interface";
 import bcrypt from "bcrypt";
 import { jwtSignInAccessToken, jwtSignInRefreshToken } from "../jwt/jwt";
-import { IErrorResponse, ILoginSuccessResponse, ISuccessResponse } from "../interfaces/response.interface";
+import {
+  IErrorResponse,
+  ILoginSuccessResponse,
+  ISuccessResponse,
+} from "../interfaces/response.interface";
 
 // interface responseMessage {
 //   message?: String;
@@ -31,16 +35,6 @@ export const addUser = async (req: Request, res: Response): Promise<any> => {
     const refreshToken = jwtSignInRefreshToken(user._id.toString());
     const accessToken = jwtSignInAccessToken(user._id.toString());
 
-    await UserModel.updateOne(
-      { _id: user._id },
-      {
-        $set: {
-          refreshToken,
-          accessToken,
-        },
-      }
-    );
-
     return res.json({ user, accessToken, refreshToken });
   } catch (err) {
     console.log(err);
@@ -53,7 +47,6 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
     const { email, password } = req.body;
     console.log(req.body);
 
-
     const user = await UserModel.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -65,20 +58,15 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
     }
 
     // generate tokens
-    const refreshToken = jwtSignInRefreshToken(user._id.toString());
     const accessToken = jwtSignInAccessToken(user._id.toString());
+    const refreshToken = jwtSignInRefreshToken(user._id.toString());
 
-    await UserModel.updateOne(
-      { _id: user._id },
-      {
-        $set: {
-          refreshToken,
-          accessToken,
-        },
-      }
-    );
-
-    const loginResponse: ILoginSuccessResponse = { user, accessToken, refreshToken, message: "Login successful" };
+    const loginResponse: ILoginSuccessResponse = {
+      user,
+      accessToken,
+      refreshToken,
+      message: "Login successful",
+    };
     return res.json(loginResponse);
   } catch (err) {
     console.error(err);
@@ -100,24 +88,30 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
         contentType: req.file.mimetype,
       };
     }
-    const updatedUser = await UserModel.findByIdAndUpdate(req.params._id, updateData);
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      req.params._id,
+      updateData
+    );
 
     if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    return res.json({ user: updatedUser, message: 'User Updated Successfully' });
+    return res.json({
+      user: updatedUser,
+      message: "User Updated Successfully",
+    });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: 'Something went wrong' });
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 
 export const validUser = async (req: Request, res: Response): Promise<any> => {
   if (req.body.user_id) {
-    const user = await UserModel.findById(req.body.user_id)
-    return res.status(200).json({ valid: true, user: user })
+    const user = await UserModel.findById(req.body.user_id);
+    return res.status(200).json({ valid: true, user: user });
   } else {
-    return res.status(401).json({ valid: false })
+    return res.status(401).json({ valid: false, message: "" });
   }
-}
+};
