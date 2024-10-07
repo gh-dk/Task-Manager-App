@@ -46,9 +46,10 @@ import { authInterceptor } from './interceptors/auth.interceptor';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 10000,
+      timeOut: 5000,
       positionClass: 'toast-top-center',
       preventDuplicates: true,
+      toastClass: 'custom-toastr',
     }),
   ],
   providers: [provideHttpClient(withInterceptors([authInterceptor]))],

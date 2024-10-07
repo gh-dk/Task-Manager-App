@@ -11,7 +11,7 @@
     <!-- 4/2 tiles -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
         <div
-            class="flex items-center justify-center flex-col py-5 px-2 sm:py-0 sm:flex-row gap-4 sm:h-24 rounded-md bg-yellow-50 dark:bg-yellow-800">
+            class="flex items-center justify-center flex-col py-5 px-2 sm:py-0 sm:flex-row gap-4 sm:h-24 rounded-md bg-yellow-100 dark:bg-yellow-800">
             <div class="bg-yellow-200 w-12 h-12 flex justify-center items-center rounded-lg">
                 <i class="ri-list-check-3 text-2xl"></i>
             </div>
@@ -36,7 +36,7 @@
                 <i class="ri-task-line text-2xl"></i>
             </div>
             <span class="text-center sm:text-left">
-                <p class="capitalize leading-5 text-sm"> ongoing / todo task</p>
+                <p class="capitalize leading-5 text-sm"> ongoing + todo task</p>
                 <h3 class="text-2xl font-bold leading-6">{{userService.ongoingTask.length +
                     userService.todoTask.length}}</h3>
             </span>

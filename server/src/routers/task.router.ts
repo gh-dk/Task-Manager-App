@@ -4,10 +4,6 @@ import { verifyToken } from '../jwt/jwt';
 
 const taskRouter = Router();
 
-// taskRouter.get("/", (req: Request, res: Response) => {
-//   res.send("Task Router");
-// });
-
 taskRouter.get("/", verifyToken, getAllTasks)
 taskRouter.post("/", verifyToken, addTask);
 taskRouter.put('/move-forward/:taskId', verifyToken, moveTaskForward);

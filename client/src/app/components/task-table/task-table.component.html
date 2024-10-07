@@ -9,7 +9,28 @@
         <th scope="col" class="px-6 py-3">Task name</th>
         <th scope="col" class="px-6 py-3 text-center">stage</th>
         <th scope="col" class="px-6 py-3 text-center">priority</th>
-        <th scope="col" class="px-6 py-3">deadline</th>
+        <th
+          scope="col"
+          class="px-6 py-3 flex justify-center items-center gap-2"
+        >
+          deadline
+          <button
+            (click)="sortModeChange('desc')"
+            *ngIf="sortMode == 'asc'"
+            class="bg-gray-300 text-lg w-6 h-6 inline-flex justify-center items-center rounded-full"
+          >
+            <i class="ri-arrow-down-line"></i>
+          </button>
+
+          <button
+            (click)="sortModeChange('asc')"
+            *ngIf="sortMode == 'desc'"
+            class="bg-gray-300 text-lg w-6 h-6 inline-flex justify-center items-center rounded-full"
+          >
+            <i class="ri-arrow-up-line"></i>
+          </button>
+        </th>
+        <!-- <th scope="col" class="px-6 py-3">Date From Now</th> -->
       </tr>
     </thead>
     <tbody>
@@ -50,8 +71,17 @@
             >{{ taskService.givePriority(task.priority) }}
           </span>
         </td>
-        <td class="px-6 py-4">
+        <!-- <td class="px-6 py-4 text-center">
           {{ task.deadline | date : "mediumDate" }}
+        </td> -->
+        <td class="px-6 py-4 text-center">
+          <span
+            class="text-gray-800 p-1 rounded-3xl"
+            [ngClass]="{
+              'bg-red-200': isBefore(task.deadline),
+            }"
+            >{{ task.deadline | date : "mediumDate" }}</span
+          >
         </td>
       </tr>
     </tbody>

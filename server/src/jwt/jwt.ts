@@ -23,39 +23,33 @@ export const verifyToken = (
   req: jwtAuthRequest,
   res: Response,
   next: NextFunction
-): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    console.log(req.header);
+): any => {
+  console.log(req.header);
 
-    const authHeader = req.headers["authorization"];
+  const authHeader = req.headers["authorization"];
 
-    console.log("im jwt mw", authHeader);
+  console.log("im jwt mw", authHeader);
 
-    if (!authHeader) {
-      return resolve(
-        res.status(403).json({ message: "No token provided", valid: false })
-      );
-    }
+  if (!authHeader) {
+    return res.status(403).json({ message: "No token provided", valid: false });
+  }
 
-    const token = authHeader.split(" ")[1];
+  const token = authHeader.split(" ")[1];
 
-    jwt.verify(
-      token,
-      process.env.JWT_ACCESS_TOKEN as string,
-      async (err: any, decoded: any) => {
-        if (err) {
-          return resolve(
-            res
-              .status(401)
-              .json({ message: "Invalid or expired token", valid: false })
-          );
-        }
-
-        req.body.user_id = decoded.userId;
-        resolve(next());
+  jwt.verify(
+    token,
+    process.env.JWT_ACCESS_TOKEN as string,
+    async (err: any, decoded: any) => {
+      if (err) {
+        return res
+          .status(401)
+          .json({ message: "Invalid or expired token", valid: false });
       }
-    );
-  });
+
+      req.body.user_id = decoded.userId;
+      next();
+    }
+  );
 };
 
 export const verifyRefreshToken = async (

@@ -74,7 +74,7 @@ export class RadialComponent implements OnInit, AfterViewInit {
         show: false,
         labels: {
           formatter: function (value: number) {
-            return value + '%';
+            return Math.round(value) + '%';
           }
         }
       }

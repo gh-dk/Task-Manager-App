@@ -102,10 +102,10 @@ export class PieComponent implements OnInit, AfterViewInit {
 
     return {
       series: [
-        backlogTaskPercent,
-        todoTaskPercent,
-        ongoingTaskPercent,
-        doneTaskPercent,
+        Math.round(backlogTaskPercent),
+        Math.round(todoTaskPercent),
+        Math.round(ongoingTaskPercent),
+        Math.round(doneTaskPercent),
       ],
       colors: ['#00000033', '#3f83f8', '#0e9f6e', '#f05252'],
       chart: {
@@ -139,14 +139,19 @@ export class PieComponent implements OnInit, AfterViewInit {
           fontWeight: 'bold',
           fontSize: '16px',
         },
-        formatter: function (val: any) {
-          return val.toFixed(1) + '%';
-        },
       },
       legend: {
         position: 'bottom',
         fontFamily: 'Inter, sans-serif',
       },
+      yaxis: {
+        show: false,
+        labels: {
+          formatter: function (value: number) {
+            return Math.round(value) + '%';
+          }
+        }
+      }
     };
   }
 
