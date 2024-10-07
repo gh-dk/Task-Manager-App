@@ -112,3 +112,12 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
     return res.status(500).json({ message: 'Something went wrong' });
   }
 };
+
+export const validUser = async (req: Request, res: Response): Promise<any> => {
+  if (req.body.user_id) {
+    const user = await UserModel.findById(req.body.user_id)
+    return res.status(200).json({ valid: true, user: user })
+  } else {
+    return res.status(401).json({ valid: false })
+  }
+}

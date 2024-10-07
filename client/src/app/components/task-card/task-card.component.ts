@@ -17,14 +17,14 @@ export class TaskCardComponent {
     public taskService: TaskService,
     public userService: UserService,
     public toastr: ToastrService
-  ) {}
+  ) { }
 
   bgOpacity: string = 'bg-opacity-[2%]';
   textColor: string = 'text-' + this.bgColor.split('bg-')[1];
 
   moveForward(task_id: string) {
     this.taskService
-      .moveTaskForward(this.userService.userData._id, task_id)
+      .moveTaskForward(task_id)
       .subscribe({
         next: (value) => {
           // alert(value.message)
@@ -41,7 +41,7 @@ export class TaskCardComponent {
 
   movBackward(task_id: string) {
     this.taskService
-      .moveTaskBackward(this.userService.userData._id, task_id)
+      .moveTaskBackward(task_id)
       .subscribe({
         next: (value) => {
           // alert(value.message)
@@ -65,10 +65,10 @@ export class TaskCardComponent {
     this.taskService.taskFormState = true;
   }
 
-  deleteTask(user_id: string, task_id: string) {
+  deleteTask(task_id: string) {
     const confirmation = confirm('Are you sure you want to delete this task');
     if (confirmation) {
-      this.taskService.deleteTask(user_id, task_id).subscribe({
+      this.taskService.deleteTask(task_id).subscribe({
         next: (value) => {
           this.toastr.success(value.message);
           this.taskService.getAllTask();
