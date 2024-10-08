@@ -5,6 +5,7 @@ export const TaskSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
     stage: {
       type: String,

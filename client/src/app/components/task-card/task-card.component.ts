@@ -3,6 +3,7 @@ import { Task } from '../../classes/task';
 import { TaskService } from '../../services/task.service';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-card',
@@ -16,52 +17,44 @@ export class TaskCardComponent {
   constructor(
     public taskService: TaskService,
     public userService: UserService,
-    public toastr: ToastrService
-  ) { }
+    public toastr: ToastrService,
+    public router: Router
+  ) {}
 
   bgOpacity: string = 'bg-opacity-[2%]';
   textColor: string = 'text-' + this.bgColor.split('bg-')[1];
 
   moveForward(task_id: string) {
-    this.taskService
-      .moveTaskForward(task_id)
-      .subscribe({
-        next: (value) => {
-          // alert(value.message)
-          this.taskService.getAllTask();
-          console.log(value);
-          this.toastr.success(value.message);
-        },
-        error(error) {
-          console.error('Error:', error);
-          alert(error.error.message);
-        },
-      });
+    this.taskService.moveTaskForward(task_id).subscribe({
+      next: (value) => {
+        this.taskService.getAllTask();
+        console.log(value);
+        this.toastr.success(value.message);
+      },
+      error: (error) => {
+        this.errorHandleUnauthorized(error);
+      },
+    });
   }
 
   movBackward(task_id: string) {
-    this.taskService
-      .moveTaskBackward(task_id)
-      .subscribe({
-        next: (value) => {
-          // alert(value.message)
-          this.taskService.getAllTask();
-          console.log(value);
-          this.toastr.success(value.message);
-        },
-        error(error) {
-          console.error('Error:', error);
-          alert(error.error.message);
-        },
-      });
+    this.taskService.moveTaskBackward(task_id).subscribe({
+      next: (value) => {
+        this.taskService.getAllTask();
+        console.log(value);
+        this.toastr.success(value.message);
+      },
+      error: (error) => {
+        this.errorHandleUnauthorized(error);
+        console.error('Error:', error);
+      },
+    });
   }
 
   editTask(task: Task) {
     console.log(this.taskService.editTaskFormData);
-
     this.taskService.editTaskFormData = task;
     console.log(this.taskService.editTaskFormData);
-
     this.taskService.taskFormState = true;
   }
 
@@ -74,10 +67,20 @@ export class TaskCardComponent {
           this.taskService.getAllTask();
           console.log(value);
         },
-        error(error) {
+        error: (error) => {
+          this.errorHandleUnauthorized(error);
           console.error('Error:', error);
         },
       });
+    }
+  }
+
+  errorHandleUnauthorized(error: any): void {
+    if (error.status === 403) {
+      this.toastr.error(error.error.message);
+      this.router.navigate(['/login']);
+    } else {
+      this.toastr.error(error.error.message);
     }
   }
 }

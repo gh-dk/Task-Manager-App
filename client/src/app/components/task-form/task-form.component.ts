@@ -82,7 +82,9 @@ export class TaskFormComponent implements OnChanges {
               }
             },
             error: (err) => {
-              alert(err);
+              console.log(err);
+              
+              this.toastr.error(err.error.message);
             },
           });
       } else {
@@ -111,7 +113,7 @@ export class TaskFormComponent implements OnChanges {
                 }
               },
               error: (err) => {
-                alert(err);
+                this.toastr.error(err.error.message);
               },
             });
         }

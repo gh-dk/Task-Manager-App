@@ -14,7 +14,7 @@ export const jwtSignInAccessToken = (id: string): any => {
 
 export const jwtSignInRefreshToken = (id: string): any => {
   return jwt.sign({ userId: id }, process.env.JWT_REFRESH_TOKEN, {
-    expiresIn: "1h",
+    expiresIn: "30m",
   });
 };
 
@@ -56,10 +56,20 @@ export const verifyRefreshToken = async (
   req: jwtAuthRequest,
   res: Response,
   next: NextFunction
-) => {
+):Promise<any> => {
   console.log("im jwt refresh token");
 
-  const { token } = req.params;
+  const authHeader = req.headers["authorization"];
+
+  console.log("im jwt mw", authHeader);
+
+  if (!authHeader) {
+    return res.status(403).json({ message: "No token provided", valid: false });
+  }
+
+  const token = authHeader.split(" ")[2];
+
+  // const { token } = req.params;
   jwt.verify(
     token,
     process.env.JWT_REFRESH_TOKEN as string,
@@ -74,7 +84,7 @@ export const verifyRefreshToken = async (
       }
 
       req.body.user_id = decoded.userId;
-      next();
+      return next();
     }
   );
 };

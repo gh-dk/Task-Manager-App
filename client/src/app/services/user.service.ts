@@ -80,11 +80,11 @@ export class UserService {
         this.userData = data.user;
         console.log(this.userData);
         this.toastr.success('Account Created Successfully');
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['login']);
       },
       error: (err) => {
         console.log(err);
-        alert(err.error.message);
+        this.toastr.error(err.error.message);
       },
     });
   }
@@ -102,7 +102,7 @@ export class UserService {
         localStorage.setItem('refreshToken', data.refreshToken);
         this.userData = data.user;
         console.log(this.userData);
-        this.toastr.success('User LoggedIn Successfully')
+        this.toastr.success('User LoggedIn Successfully');
         this.router.navigate(['dashboard']);
       },
       error: (err) => {

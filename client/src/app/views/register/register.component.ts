@@ -48,7 +48,6 @@ export class RegisterComponent {
   }
 
   submitForm() {
-    // // Check for form errors
     // Object.keys(this.registerForm.controls).forEach((key) => {
     //   const controlErrors = this.registerForm.get(key)?.errors;
     //   if (controlErrors) {

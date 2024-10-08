@@ -16,7 +16,7 @@ const upload = multer();
 
 userRouter.post("/login", loginUser);
 userRouter.get("/verify", verifyToken, validUser);
-userRouter.get("/verifyRefreshToken/:token", verifyRefreshToken, assignToken);
+userRouter.get("/verifyRefreshToken", verifyRefreshToken, assignToken);
 
 userRouter.post(
   "/register",
