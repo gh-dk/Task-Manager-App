@@ -152,7 +152,7 @@ export class UserService {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       this.router.navigate(['/login']);
-      this.toastr.success('Logout successfully');
+      this.toastr.success('logout successfully');
     }
   }
 

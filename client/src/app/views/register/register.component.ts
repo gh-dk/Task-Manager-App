@@ -21,7 +21,6 @@ export class RegisterComponent {
           Validators.required,
           Validators.minLength(10),
           // Validators.maxLength(10),
-
           // Validators.pattern('^[0-9]{10}$'),
         ]),
         email: new FormControl('', [Validators.required, Validators.email]),
@@ -42,23 +41,16 @@ export class RegisterComponent {
       this.registerForm.get('profilePic')?.setValue(input.files[0]);
       console.log(this.registerForm.value);
 
-      // preview image
+    
       this.previewImage = URL.createObjectURL(input.files[0]);
     }
   }
 
   submitForm() {
-    // Object.keys(this.registerForm.controls).forEach((key) => {
-    //   const controlErrors = this.registerForm.get(key)?.errors;
-    //   if (controlErrors) {
-    //     console.log('Errors in ' + key + ':', controlErrors);
-    //   }
-    // });
-
     if (this.registerForm.valid) {
       this.userService.addUser(this.registerForm.value);
     } else {
-      console.log('Form is invalid');
+      console.log('foem is invalid');
     }
   }
 

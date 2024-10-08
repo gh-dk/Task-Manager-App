@@ -60,13 +60,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
                   toastr.error(refreshError.error.message);
                 } else if (refreshError.status == 403) {
                   isRetryAttempted = false;
-                  toastr.error('Session expired. Please log in again.');
+                  toastr.error('session expired ');
                   router.navigate(['/login']);
                   return throwError(
-                    () => new Error('Unauthorized after token refresh attempt')
+                    () => new Error('Unauthorized')
                   );
                 } else if (refreshError.status == 401) {
-                  toastr.error('Session expired. Please log in again.');
+                  toastr.error('Session expired');
                   router.navigate(['/login']);
                 }
                 return throwError(() => {});
