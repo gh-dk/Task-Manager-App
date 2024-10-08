@@ -49,12 +49,12 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
 
     const user = await UserModel.findOne({ email });
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "user not found" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "invalid credentials" });
     }
 
     // generate tokens
@@ -70,7 +70,7 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
     return res.json(loginResponse);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Something went wrong" });
+    return res.status(500).json({ message: "omething went wrong" });
   }
 };
 
