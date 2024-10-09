@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+::-webkit-scrollbar {
+  display: none;
+}
+
+.slide-top {
+  animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* Custom toastr container */
+.custom-toastr {
+  color: white; /* White text */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+  padding: 15px;
+  font-size: 15px;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 10px;
+  animation: slide-down 500ms forwards;
+}
+
+.toast-error {
+  background: rgba(255, 0, 0, 0.747) !important;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+}
+
+.toast-success {
+  background: rgba(8, 148, 8, 0.822) !important;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+}
+@keyframes slide-top {
+  0% {
+    transform: translateY(100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slide-down {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}/*# sourceMappingURL=styles.css.map */
