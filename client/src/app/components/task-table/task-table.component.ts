@@ -31,7 +31,7 @@ export class TaskTableComponent {
     return moment(date).fromNow();
   }
 
-  isBefore(date: string): boolean {
+  isBefore(date: Date): boolean {
     const currentDate = moment();
     const inputDate = moment(date);
 
