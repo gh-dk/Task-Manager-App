@@ -21,6 +21,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const http = inject(HttpClient);
   const toastr = inject(ToastrService);
 
+  const SERVER_URL_REFRESH_TOKEN = 'http://localhost:3000/user/verifyRefreshToken/';
+
   const accessToken = localStorage.getItem('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
 
@@ -36,42 +38,38 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         if (error.status === 401 && !isRetryAttempted) {
           isRetryAttempted = true;
           // const refreshToken = localStorage.getItem('refreshToken');
-          return http
-            .get<NewResponse>('http://localhost:3000/user/verifyRefreshToken/')
-            .pipe(
-              switchMap((response) => {
-                console.log('Access token refreshed successfully');
+          return http.get<NewResponse>(SERVER_URL_REFRESH_TOKEN).pipe(
+            switchMap((response) => {
+              console.log('Access token refreshed successfully');
 
-                localStorage.setItem('accessToken', response.accessToken);
+              localStorage.setItem('accessToken', response.accessToken);
 
-                const newCloneReq = req.clone({
-                  setHeaders: {
-                    Authorization: `Bearer ${response.accessToken}`,
-                  },
-                });
+              const newCloneReq = req.clone({
+                setHeaders: {
+                  Authorization: `Bearer ${response.accessToken}`,
+                },
+              });
 
+              isRetryAttempted = false;
+
+              return next(newCloneReq);
+            }),
+            catchError((refreshError) => {
+              console.log('im inter', refreshError);
+              if (refreshError.status == 400) {
+                toastr.error(refreshError.error.message);
+              } else if (refreshError.status == 403) {
                 isRetryAttempted = false;
-
-                return next(newCloneReq);
-              }),
-              catchError((refreshError) => {
-                console.log('im inter', refreshError);
-                if (refreshError.status == 400) {
-                  toastr.error(refreshError.error.message);
-                } else if (refreshError.status == 403) {
-                  isRetryAttempted = false;
-                  toastr.error('session expired ');
-                  router.navigate(['/login']);
-                  return throwError(
-                    () => new Error('Unauthorized')
-                  );
-                } else if (refreshError.status == 401) {
-                  toastr.error('Session expired');
-                  router.navigate(['/login']);
-                }
-                return throwError(() => {});
-              })
-            );
+                toastr.error('session expired ');
+                router.navigate(['/login']);
+                return throwError(() => new Error('Unauthorized'));
+              } else if (refreshError.status == 401) {
+                toastr.error('Session expired');
+                router.navigate(['/login']);
+              }
+              return throwError(() => {});
+            })
+          );
         }
 
         return throwError(() => error);

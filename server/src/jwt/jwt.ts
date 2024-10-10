@@ -8,7 +8,7 @@ interface jwtAuthRequest extends Request {
 // jwt TOKEN Generation
 export const jwtSignInAccessToken = (id: string): any => {
   return jwt.sign({ userId: id }, process.env.JWT_ACCESS_TOKEN, {
-    expiresIn: "10s",
+    expiresIn: "1m",
   });
 };
 
