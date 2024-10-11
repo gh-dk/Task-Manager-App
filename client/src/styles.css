@@ -12,9 +12,9 @@
 
 /* Custom toastr container */
 .custom-toastr {
-  color: white; /* White text */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   padding: 15px;
   font-size: 15px;
   max-width: 300px;

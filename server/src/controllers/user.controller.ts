@@ -47,7 +47,7 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
     const { email, password } = req.body;
     console.log(req.body);
 
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).select("-password");
     if (!user) {
       return res.status(404).json({ message: "user not found" });
     }
@@ -109,7 +109,7 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
 
 export const validUser = async (req: Request, res: Response): Promise<any> => {
   if (req.body.user_id) {
-    const user = await UserModel.findById(req.body.user_id);
+    const user = await UserModel.findById(req.body.user_id).select('-password');
     return res.status(200).json({ valid: true, user: user });
   } else {
     return res.status(401).json({ valid: false, message: "" });

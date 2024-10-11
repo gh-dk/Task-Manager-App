@@ -27,7 +27,7 @@ export class TaskTableComponent {
     });
   }
 
-  formNow(date: string) {
+  formNow(date: Date) {
     return moment(date).fromNow();
   }
 
