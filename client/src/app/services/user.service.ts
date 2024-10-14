@@ -77,8 +77,6 @@ export class UserService {
         console.log(success);
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
-        this.userData = data.user;
-        console.log(this.userData);
         this.toastr.success('Account Created Successfully');
         this.router.navigate(['login']);
       },
@@ -100,8 +98,6 @@ export class UserService {
         console.log(success);
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
-        this.userData = data.user;
-        console.log(this.userData);
         this.toastr.success('User LoggedIn Successfully');
         this.router.navigate(['dashboard']);
       },

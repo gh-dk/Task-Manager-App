@@ -35,7 +35,7 @@ export const addUser = async (req: Request, res: Response): Promise<any> => {
     const refreshToken = jwtSignInRefreshToken(user._id.toString());
     const accessToken = jwtSignInAccessToken(user._id.toString());
 
-    return res.json({ user, accessToken, refreshToken });
+    return res.json({ accessToken, refreshToken });
   } catch (err) {
     console.log(err);
     return res.json({ message: "some thing went wrong" });
@@ -47,7 +47,7 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
     const { email, password } = req.body;
     console.log(req.body);
 
-    const user = await UserModel.findOne({ email }).select("-password");
+    const user = await UserModel.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "user not found" });
     }
@@ -60,9 +60,7 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
     // generate tokens
     const accessToken = jwtSignInAccessToken(user._id.toString());
     const refreshToken = jwtSignInRefreshToken(user._id.toString());
-
     const loginResponse: ILoginSuccessResponse = {
-      user,
       accessToken,
       refreshToken,
       message: "Login successful",
@@ -109,7 +107,7 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
 
 export const validUser = async (req: Request, res: Response): Promise<any> => {
   if (req.body.user_id) {
-    const user = await UserModel.findById(req.body.user_id).select('-password');
+    const user = await UserModel.findById(req.body.user_id).select("-password");
     return res.status(200).json({ valid: true, user: user });
   } else {
     return res.status(401).json({ valid: false, message: "" });

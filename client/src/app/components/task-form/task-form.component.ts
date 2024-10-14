@@ -83,7 +83,7 @@ export class TaskFormComponent implements OnChanges {
             },
             error: (err) => {
               console.log(err);
-              
+
               this.toastr.error(err.error.message);
             },
           });
@@ -122,7 +122,7 @@ export class TaskFormComponent implements OnChanges {
   }
 
   checkDeadlineValid() {
-    const now = moment();
+    const now = moment().subtract(1, 'day');
     const deadline = moment(this.taskform.value.deadline);
     if (deadline.isBefore(now)) {
       return true;

@@ -142,7 +142,7 @@ export const updateTask = async (req: Request, res: Response): Promise<any> => {
 
     //unique name
     const nameExists = user.tasks.some(
-      (task) => task.name === taskData.name && task._id.toString() !== taskId
+      (task) => task.name.toLocaleUpperCase() === taskData.name.toLocaleUpperCase() && task._id.toString() !== taskId
     );
     if (nameExists) {
       return res.status(400).json({ message: "Task name must be unique" });
